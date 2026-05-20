@@ -28,15 +28,23 @@ const sendEmail = async (options) => {
             data,
             {
                 headers: {
-                    "Content-Type": "application/json",
                     "api-key": BREVO_API_KEY,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 },
             }
         );
 
-        console.log("Email sent successfully:", response.data);
+        const result = response.data;
 
-        return response.data;
+        if (response.status >= 200 && response.status < 300) {
+            console.log("Email sent successfully:", result);
+            return result;
+        } else {
+            console.error("Email sending failed:", result);
+            throw new Error(result.message || "Failed to send email");
+        }
+       
     } catch (error) {
         console.error(
             "Email sending failed:",

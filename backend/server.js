@@ -1,7 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import http from 'http'
+import authRouter from './routes/auth.routes.js'
 import { connectDB } from './config/db.js'
+import userRouter from './routes/user.routes.js'
+import propertyRouter from './routes/property.routes.js'
 
 
 dotenv.config()
@@ -17,8 +21,12 @@ app.use(cors())
 app.use(express.json())
 
 //Routes
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/properties", propertyRouter);
+
+app.get("/", (req, res) => {
+    res.send("API WORKING");
 })  
 
 app.listen(PORT, () => {
