@@ -20,6 +20,7 @@ export const addProperty = async (req, res) => {
             description: req.body.description,
             price: Number(req.body.price),
             city: req.body.city,
+            area: req.body.area,
             pincode: req.body.pincode,
             propertyType: req.body.propertyType,
             bhk: req.body.bhk ? String(req.body.bhk) : undefined,
@@ -41,6 +42,8 @@ export const addProperty = async (req, res) => {
                     })()
                 : [],
         });
+
+        await property.save();
 
         res.json({
             success: true,

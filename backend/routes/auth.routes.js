@@ -1,4 +1,4 @@
- import express from "express";
+import express from "express";
 import { register, login, forgotPassword, resetPassword, verifyEmail, getMe } from "../controllers/auth.controller.js";
 import { protect } from "../middlewares/auth.middleware.js";
 
