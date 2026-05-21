@@ -22,7 +22,8 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
+        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const verificationCodeExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
         const user = await User.create({
             name,
@@ -32,14 +33,35 @@ export const register = async (req, res) => {
             phone,
             address,
             isApproved: role === "seller" ? false : true,
-            verificationToken,
+            verificationToken: verificationCode,
+            verificationCode,
+            verificationCodeExpires,
+            isVerified: false,
         });
 
         try {
             await sendEmail({
                 email,
-                subject: "Email Verification",
-                message: `<p>Hello ${name},</p><p>Please verify your email by clicking the link below:</p><a href="http://localhost:3000/verify-email?token=${verificationToken}">Verify Email</a>`
+                subject: "Email Verification OTP",
+                message: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #ffffff;">
+                        <h2 style="color: #4A90E2; text-align: center;">Verify Your Email Address</h2>
+                        <p style="font-size: 16px; color: #333333;">Hello <b>${name}</b>,</p>
+                        <p style="font-size: 16px; color: #333333; line-height: 1.5;">Thank you for registering with Real Estate. Please use the following One-Time Password (OTP) to complete your registration. This code is valid for <b>10 minutes</b>:</p>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <span style="font-size: 32px; font-weight: bold; color: #4A90E2; letter-spacing: 5px; padding: 10px 20px; border: 2px dashed #4A90E2; border-radius: 5px; background-color: #f7f9fc; display: inline-block;">${verificationCode}</span>
+                        </div>
+                        <p style="font-size: 14px; color: #777777; line-height: 1.5; text-align: center;">If you did not request this email, please ignore it or contact support if you have concerns.</p>
+                        <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 30px 0;" />
+                        <p style="font-size: 12px; color: #aaaaaa; text-align: center;">&copy; ${new Date().getFullYear()} Real Estate MERN App. All rights reserved.</p>
+                    </div>
+                `
+            });
+
+            return res.status(201).json({
+                success: true,
+                message: "Registration successful. Please verify your email.",
+                user
             });
 
         } catch (error) {
@@ -75,7 +97,10 @@ export const login = async (req, res) => {
         }
 
         if (!user.isVerified) {
-            return res.status(403).json({ message: "Please verify your email before logging in" });
+            return res.status(403).json({
+                success: false,
+                message: "Please verify your email"
+            });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -127,33 +152,107 @@ export const verifyEmail = async (req, res) => {
     try {
         const { email, code } = req.body;
         if (!email || !code) {
-            return res.status(400).json({ message: "Email and verification code are required" });
+            return res.status(400).json({ success: false, message: "Email and verification code are required" });
         }
 
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ success: false, message: "User not found" });
         }
         if (user.isVerified) {
-            return res.status(400).json({ message: "Email is already verified" });
+            return res.status(400).json({ success: false, message: "Email is already verified" });
         }
 
-        if (user.verificationToken !== code) {
-            return res.status(400).json({ message: "Invalid verification code" });
+        // Check if code matches
+        const codeMatches = (user.verificationCode === code) || (user.verificationToken === code);
+        if (!codeMatches) {
+            return res.status(400).json({ success: false, message: "Invalid verification code" });
+        }
+
+        // Validate expiry
+        if (user.verificationCodeExpires && user.verificationCodeExpires < Date.now()) {
+            return res.status(400).json({ success: false, message: "Verification code has expired" });
         }
 
         user.isVerified = true;
         user.verificationToken = undefined;
+        user.verificationCode = undefined;
+        user.verificationCodeExpires = undefined;
         await user.save();
-        res.json({ message: "Email verified successfully", success: true });
+
+        res.status(200).json({ success: true, message: "Email verified successfully" });
     }
     catch (error) {
         res.status(500).json({
-            message: "Internal server error",
             success: false,
+            message: "Internal server error",
         });
     }
 }
+
+
+// resend verification OTP
+export const resendVerification = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        if (user.isVerified) {
+            return res.status(400).json({ success: false, message: "Email is already verified" });
+        }
+
+        // Generate new 6-digit OTP
+        const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        user.verificationCode = newOTP;
+        user.verificationToken = newOTP; // keep legacy token synced
+        user.verificationCodeExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+
+        await user.save();
+
+        try {
+            await sendEmail({
+                email,
+                subject: "New Verification OTP",
+                message: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #ffffff;">
+                        <h2 style="color: #4A90E2; text-align: center;">New Email Verification OTP</h2>
+                        <p style="font-size: 16px; color: #333333;">Hello <b>${user.name}</b>,</p>
+                        <p style="font-size: 16px; color: #333333; line-height: 1.5;">You requested a new verification code. Please use the following One-Time Password (OTP) to verify your email. This code is valid for <b>10 minutes</b>:</p>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <span style="font-size: 32px; font-weight: bold; color: #4A90E2; letter-spacing: 5px; padding: 10px 20px; border: 2px dashed #4A90E2; border-radius: 5px; background-color: #f7f9fc; display: inline-block;">${newOTP}</span>
+                        </div>
+                        <p style="font-size: 14px; color: #777777; line-height: 1.5; text-align: center;">If you did not request this email, please ignore it.</p>
+                        <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 30px 0;" />
+                        <p style="font-size: 12px; color: #aaaaaa; text-align: center;">&copy; ${new Date().getFullYear()} Real Estate MERN App. All rights reserved.</p>
+                    </div>
+                `
+            });
+
+            return res.status(200).json({
+                success: true,
+                message: "Verification OTP resent successfully."
+            });
+        } catch (error) {
+            console.error("RESEND OTP ERROR:");
+            console.error(error);
+            return res.status(500).json({
+                success: false,
+                message: "Failed to send email. Please try again.",
+                error: error.message
+            });
+        }
+    } catch (error) {
+        console.error("Error during resending verification:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
 
 
 // forgot password

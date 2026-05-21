@@ -58,7 +58,7 @@ export const updateProfile = async (req, res) => {
 
         //image handling
         if (req.file) {
-            const result = await uploadToCloudinary(req.file.path, "profile_pictures");
+            const result = await uploadToCloudinary(req.file.buffer, "profile_pictures");
             user.profilePic = result.secure_url;
         } else if (removeProfilePic === "true") {
             user.profilePic = null;

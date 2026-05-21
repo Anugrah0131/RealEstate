@@ -17,8 +17,7 @@ propertyRouter.delete("/:id", protect, authorize("seller"), deleteProperty);
 propertyRouter.patch("/:id/status", protect, authorize("seller"), updatePropertyStatus);
 
 propertyRouter.get("/counts", getPropertyCountsByType);
-propertyRouter.get("/:id", getPropertyDetails);
-
 propertyRouter.get("/seller/dashboard", protect, authorize("seller"), getSellerDashboard);
+propertyRouter.get("/:id", getPropertyDetails);
 
 export default propertyRouter;

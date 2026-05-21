@@ -348,7 +348,7 @@ export const getPropertyDetails = async (req, res) => {
         }
 
         const isSellerCheking = visitorId === property.seller._id.toString();
-        if (!isSellerCheking && !property.viewers.includes(visitorId)) {
+        if (!isSellerCheking && !property.viewedBy.includes(visitorId)) {
             property.views += 1;
             property.viewedBy.push(visitorId);
             await property.save();
