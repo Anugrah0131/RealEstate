@@ -6,7 +6,7 @@ export const sendInquiry = async (req, res) => {
     try {
         const { propertyId, message } = req.body;
         const property = await Property.findById(propertyId).populate("seller");
-
+        
         if (!property) {
             return res.status(404).json
             ({  success: false,
