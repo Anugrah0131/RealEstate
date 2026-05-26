@@ -65,6 +65,7 @@ status: {
     default: "sale",
 },
 images: [{ type: String }],
+
 seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
