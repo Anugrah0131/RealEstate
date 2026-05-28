@@ -1,18 +1,27 @@
 import mongoose from "mongoose";
-import User from "./user.model";
-import Property from "./property.model";
 
-const wishlistSchema = new mongoose.Schema({
-    User: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+const wishlistSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
 
-    Property: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Property"
-    }
-});
+    property: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Property",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// prevent duplicate wishlist items
+wishlistSchema.index({ user: 1, property: 1 }, { unique: true });
 
 const Wishlist = mongoose.model("Wishlist", wishlistSchema);
+
 export default Wishlist;
