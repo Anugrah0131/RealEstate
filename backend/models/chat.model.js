@@ -1,6 +1,6 @@
 import { text } from "express";
 import mongoose from "mongoose";
-import Property from "./property.model";
+import Property from "./property.model.js";
 
 const messageSchema = new mongoose.Schema({
     sender: {
