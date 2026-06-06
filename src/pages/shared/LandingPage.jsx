@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiCurrencyDollar, HiHome, HiLightningBolt, HiLocationMarker, HiOfficeBuilding, HiShieldCheck, HiVideoCamera, HiSearch } from "react-icons/hi";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import axios from "axios";
 
 import Navbar from "../../components/common/Navbar";
@@ -8,6 +9,7 @@ import { landingPageStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 import API_URL from "../../config";
 import banner from "../../assets/bannerimage.png";
+import PropertyCard from "../../components/common/PropertyCard";
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -56,6 +58,7 @@ const LandingPage = () => {
         }
     };
 
+    // to add/remove from wishlist
     const handleToggleWishlist = async (propertyId) => {
         try {
             const exists = wishlistIds.includes(propertyId);
@@ -393,11 +396,122 @@ const LandingPage = () => {
                 <div className={s.container}>
                     <div className={s.processHeader}>
                         <span className={s.proccessBadge}>How It Works</span>
+                        <h2 className={s.processTitle}>
+                            Our Seamless <span className={s.textGradient}>Process</span>
+                        </h2>
+                        <p className={s.processSubtitle}>
+                            Discover how our innovative approach makes property searching effortless and efficient.
+                        </p>
+                    </div>
+
+                    <div className={s.processGrid}>
+                        {[
+                            {
+                                step: "01",
+                                title: "Smart Search",
+                                desc: "Leverage our AI-driven Smart Search algorithms to find the best property matches tailored to your specific preferences.",
+                                icon: <HiLightningBolt size={32} />,
+                            },
+                            {
+                                step: "02",
+                                title: "Virtual Tours",
+                                desc: "Experience your future home from anywhere with our high-definition 3D virtual tours and immersive walkthroughs.",
+                                icon: <HiVideoCamera size={32} />,
+                            },
+                            {
+                                step: "03",
+                                title: "Verified Trust",
+                                desc: "Every listing is strictly audited for ownership and condition, ensuring your peace of mind and a secure transaction.",
+                                icon: <HiShieldCheck size={32} />,
+                            },
+                        ].map((p, idx) => (
+                            <div key={idx} className={s.processCard}>
+                                <div className={s.stepNumber}>{p.step}</div>
+                                <div className={s.processIconWrapper}>{p.icon}</div>
+                                <h3 className={s.processCardTitle}>{p.title}</h3>
+                                <p className={s.processCardDesc}>{p.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
+            {/* feature collection section */}
+            <section className={s.featuredSection}>
+                <div className={s.container}>
+                    <div className={s.featuredHeader}>
+                        <span className={s.featuredBadge}>Handpicked For You</span>
+                        <h2 className={s.featuredTitle}>
+                            Featured Properties
+                        </h2>
+                        <p className={s.featuredSubtitle}>
+                            Discover the powerful tools and features that make our platform stand out.
+                        </p>
 
+                    </div>
+                    {loading ? (
+                        <div className={s.loadingContainer}>
+                            <div className={s.loader}></div>
+                        </div>
+                    ) : error ? (
+                        <div className={s.errorContainer}>
+                            <p className={s.errorMessage}>{error}</p>
+                        </div>
+                    ) : (
+                        <div className={s.propertiesGrid}>
+                            {properties
+                                .filter((p) => p)
+                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                .slice(0, 6)
+                                .map((property) => (
+                                    <PropertyCard
+                                        key={property._id}
+                                        property={property}
+                                        isWishlisted={wishlistIds.includes(String(property._id))}
+                                        onToggleWishlist={handleToggleWishlist}
+                                    />
+                                ))}
+                        </div>
+                    )}
+
+                    <div className={s.discoverButton}>
+                        <button 
+                        onClick={() => navigate("/properties")}
+                        className={s.discoverButton}
+                        >
+                            Discover More Properties
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* footer */}
+            <footer className={s.footer}>
+                <div className={s.container}>
+                    <div className={s.footerMainGrid}>
+                        <div className={s.footerBrand}>
+                            <div className={s.brandLogo}>
+                                <div className={s.brandIcon}>RE</div>
+                                    RealEstate
+                                
+                            </div>
+                            <p className={s.brandDesc}>
+                                Your trusted partner in real estate.
+                            </p>
+
+                            <div className={s.socialIcons}>
+                                {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map(
+                                    (Icon, idx) => (
+                                        <a href="#" key={idx} className={s.socialIcon} target="_blank" rel="noopener noreferrer">
+                                            <Icon size={20} />
+                                        </a>
+                                    ),
+                                )}
+                            </div>
+                    </div>
+                        </div>
+                </div>
+            </footer>
         </div>
     );
 };
