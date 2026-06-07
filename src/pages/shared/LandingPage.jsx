@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiCurrencyDollar, HiHome, HiLightningBolt, HiLocationMarker, HiOfficeBuilding, HiShieldCheck, HiVideoCamera, HiSearch } from "react-icons/hi";
+import { HiCurrencyDollar, HiHome, HiLightningBolt, HiLocationMarker, HiOfficeBuilding, HiShieldCheck, HiVideoCamera, HiSearch, HiMail, HiPhone } from "react-icons/hi";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import API_URL from "../../config";
 import banner from "../../assets/bannerimage.png";
 import PropertyCard from "../../components/common/PropertyCard";
-
+import logo from "../../assets/logo.png";
 const LandingPage = () => {
     const navigate = useNavigate();
     const { user, token } = useAuth();
@@ -475,9 +475,9 @@ const LandingPage = () => {
                     )}
 
                     <div className={s.discoverButton}>
-                        <button 
-                        onClick={() => navigate("/properties")}
-                        className={s.discoverButton}
+                        <button
+                            onClick={() => navigate("/properties")}
+                            className={s.discoverButton}
                         >
                             Discover More Properties
                         </button>
@@ -492,8 +492,8 @@ const LandingPage = () => {
                         <div className={s.footerBrand}>
                             <div className={s.brandLogo}>
                                 <div className={s.brandIcon}>RE</div>
-                                    RealEstate
-                                
+                                RealEstate
+
                             </div>
                             <p className={s.brandDesc}>
                                 Your trusted partner in real estate.
@@ -508,8 +508,97 @@ const LandingPage = () => {
                                     ),
                                 )}
                             </div>
-                    </div>
                         </div>
+
+                        {/* Column 2: Quick Links */}
+                        <div>
+                            <h4 className={s.footerHeading}>Company</h4>
+                            <ul className={s.footerLinks}>
+                                <li>
+                                    <a href="/" className={s.footerLink}>
+                                        Home
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/properties" className={s.footerLink}>
+                                        Property
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/wishlist" className={s.footerLink}>
+                                        Wishlist
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/contact" className={s.footerLink}>
+                                        Contact
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Column 3: Contact Info */}
+                        <div>
+                            <h4 className={s.footerHeading}>Support</h4>
+                            <ul className={s.footerLinks}>
+                                <li className={s.contactInfo}>
+                                    <HiMail className="text-primary text-xl" />{" "}
+                                    contact@reestate.com
+                                </li>
+                                <li className={s.contactInfo}>
+                                    <HiPhone className="text-primary text-xl" /> +91 1234567890
+                                </li>
+                                <li className={s.contactInfoStart}>
+                                    <HiLocationMarker
+                                        className={`text-primary ${s.contactIcon}`}
+                                    />
+                                    123 Business Hub, India
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Column 4: */}
+                        <div>
+                            <h4 className={s.footerHeading}>Newsletter</h4>
+                            <p className={s.newsletterText}>
+                                Subscribe to get the latest listings and offers.
+                            </p>
+                            <div className={s.newsletterInputWrapper}>
+                                <input type="email" placeholder="Your email address" className={s.newsletterInput}
+                                />
+                                <button className={s.newsletterButton}>Subscribe</button></div>
+                        </div>
+                    </div>
+
+                    {/* bottom bar */}
+                    <div className={s.bottomBar}>
+                        <div className={s.bottomBarFlex}>
+                            <p>
+                                &copy; {new Date().getFullYear()} RealEstate. All rights reserved.
+                            </p>
+                            <div className={s.footerLegalLinks}>
+                                <a href="#" className={s.footerLink}>
+                                    Terms & Conditions
+                                </a>
+                                <a href="#" className={s.footerLink}>
+                                    Privacy Policy
+                                </a>
+                                <a href="#" className={s.footerLink}>
+                                    Cookies settings
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className={s.designCredit}>
+                            <img src={logo} alt="" className={s.designLogo} />
+                            <span className=" text-text-muted">Designed By </span>
+                            <a href="https://hexagondigitalservices.com"
+                            targets="_blank"
+                             className={s.designLink} target="_blank">
+                                Hexagon Digital Services
+                            </a>
+                        </div>
+                    </div>    
                 </div>
             </footer>
         </div>
