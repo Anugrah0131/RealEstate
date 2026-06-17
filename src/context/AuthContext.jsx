@@ -102,8 +102,8 @@ const register = async (userData) => {
             headers: { Authorization: `Bearer ${token}` },
         });
         if(res.data.success) {
-            const updateUser = res.data.user;
-            setUser(updateUser);
+            const updatedUser = res.data.user;
+            setUser(updatedUser);
             const storage = localStorage.getItem("token")
             ? localStorage : sessionStorage;
 

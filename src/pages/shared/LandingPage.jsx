@@ -48,10 +48,14 @@ const LandingPage = () => {
                 },
             });
 
+            console.log("Wishlist response:", res.data);
+            console.log("Type:", typeof res.data);
+            console.log("Is array:", Array.isArray(res.data));
+
             setWishlistIds(
-                res.data
-                    .filter((item) => item.propertyId)
-                    .map((item) => String(item.propertyId._id))
+                res.data.data
+                    .filter(item => item.property)
+                    .map(item => String(item.property._id))
             );
         } catch (err) {
             console.error("Wishlist fetch error:", err);
@@ -593,12 +597,12 @@ const LandingPage = () => {
                             <img src={logo} alt="" className={s.designLogo} />
                             <span className=" text-text-muted">Designed By </span>
                             <a href="https://hexagondigitalservices.com"
-                            targets="_blank"
-                             className={s.designLink} target="_blank">
+                                targets="_blank"
+                                className={s.designLink} target="_blank">
                                 Hexagon Digital Services
                             </a>
                         </div>
-                    </div>    
+                    </div>
                 </div>
             </footer>
         </div>

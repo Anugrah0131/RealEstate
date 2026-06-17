@@ -14,6 +14,7 @@ import {
 import { propertyCardStyles as s } from "../../assets/dummyStyles";
 import { useAuth } from "../../context/AuthContext";
 
+
 const PropertyCard = ({
   property,
   renderActions,

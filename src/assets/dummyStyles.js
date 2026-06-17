@@ -1040,37 +1040,60 @@ export const resetPasswordStyles = {
 };
 
 export const registerStyles = {
-  // Layout
-  pageWrapper: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
-  container: "container flex justify-center items-center pt-8 pb-16 sm:pt-4 sm:pb-8",
+    // Layout
+    pageWrapper: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
+    container:
+        "container flex justify-center items-center pt-8 pb-16 sm:pt-4 sm:pb-8",
 
-  // Form card
-  formCard: "glass fade-in w-full max-w-[500px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
-  heading: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
-  subheading: "text-center text-text-muted mb-8",
+    // Form card
+    formCard:
+        "glass fade-in w-full max-w-[500px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
 
-  // Messages
-  errorMessage: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
-  successMessage: "p-3 bg-green-100 text-green-600 rounded-lg mb-4 text-sm text-center",
+    heading:
+        "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
 
-  // Form
-  form: "flex flex-col gap-5 sm:gap-4",
-  label: "block mb-2 font-medium",
-  input: "w-full py-3 px-4 rounded-lg border border-border outline-none focus:border-primary transition-colors",
+    subheading:
+        "text-center text-text-muted mb-8",
 
-  // Role selection
-  roleContainer: "flex gap-4",
-  roleLabelBase: "flex-1 cursor-pointer p-3 rounded-lg border-2 text-center transition-all duration-200",
-  roleLabelActive: "border-primary bg-secondary",
-  roleLabelInactive: "border-border bg-white",
-  hiddenRadio: "hidden",
+    // Messages
+    errorMessage:
+        "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
 
-  // Submit button
-  submitButton: "btn btn-primary p-3.5 text-base mt-2",
+    successMessage:
+        "p-3 bg-green-100 text-green-600 rounded-lg mb-4 text-sm text-center",
 
-  // Footer
-  footerText: "text-center mt-8 text-text-muted",
-  loginLink: "text-primary font-semibold hover:underline",
+    // Form
+    form: "flex flex-col gap-5 sm:gap-4",
+
+    label: "block mb-2 font-medium",
+
+    input:
+        "w-full py-3 px-4 rounded-lg border border-border outline-none focus:border-primary transition-colors",
+
+    // Role selection
+    roleContainer: "flex gap-4",
+
+    roleLabelBase:
+        "flex-1 cursor-pointer p-3 rounded-xl border-2 text-center font-medium transition-all duration-200 select-none",
+
+    roleLabelActive:
+        "border-primary bg-primary-light text-primary",
+
+    roleLabelInactive:
+        "border-border bg-white text-gray-600 hover:border-primary",
+
+    hiddenRadio: "sr-only",
+
+    // Submit button
+    submitButton:
+        "btn btn-primary p-3.5 text-base mt-2",
+
+    // Footer
+    footerText:
+        "text-center mt-8 text-text-muted",
+
+    loginLink:
+        "text-primary font-semibold hover:underline",
 };
 
 export const verifyEmailStyles = {
