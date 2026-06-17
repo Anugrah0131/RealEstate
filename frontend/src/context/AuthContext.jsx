@@ -43,9 +43,91 @@ export const AuthProvider = ({ children }) => {
     }, [token]
 );
 
+// login
+const login = async (email, password) => {
+    try {
+        const res = await axios.post(`${API_URL}/api/auth/login`, {
+            email,
+            password,
+        });
+        const { token, user } = res.data;
+        setToken(token);
+        setUser(user);
 
-    return <AuthContext.Provider>
+        localStorage.setItem("token",token);
+        localStorage.setItem("user", JSON.stringify(user));
 
+        return {success: true};
+    } catch (err) {
+        return {
+            success: false,
+            message: err.response?.data?.message || "Login Denied or failed",
+        };
+    }
+};
+
+// register
+const register = async (userData) => {
+    try {
+         const res = await axios.post(`${API_URL}/api/auth/register`, userData);
+         return {
+            success: true,
+            message: res.data.message,
+         };
+    } catch (err) {
+        return{
+            success: false,
+            message: err.response?.data?.message || "Registration failed",
+        };
+       
+    }
+};
+
+// to logout
+ const logout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    navigate("/login");
+ };
+
+ // to get the user details
+ const refreshUser = async () => {
+    if (!token) return;
+    try {
+        const res = await axios.get(`${API_URL}/api/auth/me`,{
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        if(res.data.success) {
+            const updatedUser = res.data.user;
+            setUser(updatedUser);
+            const storage = localStorage.getItem("token")
+            ? localStorage : sessionStorage;
+
+            storage.setItem("user", JSON.stringify(updatedUser));
+        }
+        
+    } catch (err) {
+        console.error("Failed to refresh the user:", err);
+    }
+ };
+
+    return <AuthContext.Provider
+     value={{
+       user,
+       setUser,
+       token,
+       loading,
+       login,
+       register,
+       logout,
+       refreshUser,
+    }}
+    >
+      {children}
     </AuthContext.Provider>
 };
 

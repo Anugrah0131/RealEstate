@@ -1040,37 +1040,60 @@ export const resetPasswordStyles = {
 };
 
 export const registerStyles = {
-  // Layout
-  pageWrapper: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
-  container: "container flex justify-center items-center pt-8 pb-16 sm:pt-4 sm:pb-8",
+    // Layout
+    pageWrapper: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
+    container:
+        "container flex justify-center items-center pt-8 pb-16 sm:pt-4 sm:pb-8",
 
-  // Form card
-  formCard: "glass fade-in w-full max-w-[500px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
-  heading: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
-  subheading: "text-center text-text-muted mb-8",
+    // Form card
+    formCard:
+        "glass fade-in w-full max-w-[500px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
 
-  // Messages
-  errorMessage: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
-  successMessage: "p-3 bg-green-100 text-green-600 rounded-lg mb-4 text-sm text-center",
+    heading:
+        "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
 
-  // Form
-  form: "flex flex-col gap-5 sm:gap-4",
-  label: "block mb-2 font-medium",
-  input: "w-full py-3 px-4 rounded-lg border border-border outline-none focus:border-primary transition-colors",
+    subheading:
+        "text-center text-text-muted mb-8",
 
-  // Role selection
-  roleContainer: "flex gap-4",
-  roleLabelBase: "flex-1 cursor-pointer p-3 rounded-lg border-2 text-center transition-all duration-200",
-  roleLabelActive: "border-primary bg-secondary",
-  roleLabelInactive: "border-border bg-white",
-  hiddenRadio: "hidden",
+    // Messages
+    errorMessage:
+        "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
 
-  // Submit button
-  submitButton: "btn btn-primary p-3.5 text-base mt-2",
+    successMessage:
+        "p-3 bg-green-100 text-green-600 rounded-lg mb-4 text-sm text-center",
 
-  // Footer
-  footerText: "text-center mt-8 text-text-muted",
-  loginLink: "text-primary font-semibold hover:underline",
+    // Form
+    form: "flex flex-col gap-5 sm:gap-4",
+
+    label: "block mb-2 font-medium",
+
+    input:
+        "w-full py-3 px-4 rounded-lg border border-border outline-none focus:border-primary transition-colors",
+
+    // Role selection
+    roleContainer: "flex gap-4",
+
+    roleLabelBase:
+        "flex-1 cursor-pointer p-3 rounded-xl border-2 text-center font-medium transition-all duration-200 select-none",
+
+    roleLabelActive:
+        "border-primary bg-primary-light text-primary",
+
+    roleLabelInactive:
+        "border-border bg-white text-gray-600 hover:border-primary",
+
+    hiddenRadio: "sr-only",
+
+    // Submit button
+    submitButton:
+        "btn btn-primary p-3.5 text-base mt-2",
+
+    // Footer
+    footerText:
+        "text-center mt-8 text-text-muted",
+
+    loginLink:
+        "text-primary font-semibold hover:underline",
 };
 
 export const verifyEmailStyles = {
@@ -1217,38 +1240,128 @@ export const navbarStyles = {
 };
 
 export const propertyCardStyles = {
-  // Card container
-  card: "fade-in group flex flex-col bg-white rounded-[1.25rem] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] border border-[#e2e8f0] relative w-full hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,0,0,0.1)] max-sm:max-w-[420px] max-sm:mx-auto",
-  link: "no-underline text-inherit flex flex-col w-full",
+  // Main Card
+  card: `
+    fade-in group flex flex-col bg-white rounded-3xl overflow-hidden
+    border border-slate-200
+    shadow-lg shadow-slate-200/40
+    transition-all duration-300
+    hover:-translate-y-2 hover:shadow-2xl hover:shadow-slate-300/30
+    relative w-full
+    max-sm:max-w-[420px] max-sm:mx-auto
+  `,
 
-  // Image section
-  imageSection: "relative h-[220px] overflow-hidden shrink-0",
-  image: "w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105",
-  topBadges: "absolute top-4 left-4 right-4 flex justify-between items-center z-10",
-  badgesLeft: "flex gap-2",
-  badgeStatus: (status) => `text-white px-3 py-1 rounded-full text-xs font-extrabold uppercase backdrop-blur shadow-[0_2px_8px_rgba(0,0,0,0.1)] ${status === 'sold' ? 'bg-[#64748b]' : 'bg-[#10b981]'}`,
-  badgeNew: "bg-white/90 px-3 py-1 rounded-full text-xs font-bold uppercase text-text-main backdrop-blur",
-  badgeVerified: "bg-primary text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 uppercase",
-  wishlistButton: (isWishlisted) => `flex items-center justify-center w-8 h-8 rounded-full border-none cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.1)] transition-all duration-200 z-[15] hover:text-red-500 hover:scale-110 hover:bg-white ${isWishlisted ? 'text-red-500 bg-white' : 'text-[#64748b] bg-white/90'}`,
-  priceOverlay: "absolute bottom-0 left-0 right-0 pt-6 pb-3 px-4 bg-gradient-to-t from-black/70 to-transparent text-white",
-  price: "text-[1.5rem] font-extrabold m-0",
+  link: "flex flex-col w-full no-underline text-current",
 
-  // Content section
-  content: "p-5 flex flex-col flex-1",
-  propertyType: "text-[0.75rem] font-bold text-primary uppercase tracking-[0.05em]",
-  views: "flex items-center gap-[0.3rem] color-[#64748b] text-[0.8125rem] font-semibold",
-  title: "text-[1.125rem] font-bold mt-1 mb-2 text-text-main whitespace-nowrap overflow-hidden text-ellipsis min-h-[1.5rem]",
-  location: "flex items-center gap-[0.4rem] text-text-muted text-[0.875rem] mb-4",
-  locationIcon: "text-[#94a3b8] shrink-0",
-  specsGrid: "grid grid-cols-[1fr_1fr_1fr] py-4 border-t border-[#f1f5f9] gap-2 mt-auto",
-  specItem: "text-center",
-  specIcon: "text-[#64748b] mb-1 flex justify-center",
-  specValue: "font-bold text-[0.9375rem] text-text-main",
-  specLabel: "text-[0.625rem] text-[#94a3b8] uppercase font-bold",
-  specDivider: "border-l border-r border-[#f1f5f9]",
+  // Image Area
+  imageSection: "relative overflow-hidden min-h-[240px]",
+
+  image: `
+    w-full h-[240px] object-cover
+    transition-transform duration-500
+    group-hover:scale-110
+  `,
+
+  topBadges:
+    "absolute top-4 left-4 right-4 flex justify-between items-start z-20",
+
+  badgesLeft: "flex gap-2 flex-wrap",
+
+  badgeStatus: (status) =>
+    `px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide text-white shadow-md backdrop-blur ${
+      status === "sold"
+        ? "bg-slate-500"
+        : status === "rent"
+        ? "bg-amber-500"
+        : "bg-emerald-500"
+    }`,
+
+  badgeNew:
+    "bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[11px] font-bold uppercase text-slate-700 shadow-md",
+
+  badgeVerified:
+    "bg-teal-600 text-white px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 shadow-md",
+
+  wishlistButton: (isWishlisted) =>
+    `
+      flex items-center justify-center
+      w-10 h-10 rounded-full
+      shadow-lg backdrop-blur
+      transition-all duration-200
+      hover:scale-110
+      ${
+        isWishlisted
+          ? "bg-white text-red-500"
+          : "bg-white/90 text-slate-600 hover:text-red-500"
+      }
+    `,
+
+  // Price Overlay
+  priceOverlay:
+    "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 py-4",
+
+  price: "text-white text-2xl font-extrabold tracking-tight",
+
+  // Content
+  content: "flex flex-col flex-1 p-5",
+
+  propertyType:
+    "text-xs font-bold uppercase tracking-widest text-teal-600",
+
+  views:
+    "flex items-center gap-1 text-slate-500 text-sm font-medium",
+
+  title: `
+    text-lg font-bold text-slate-900
+    mt-2 mb-3
+    line-clamp-1
+  `,
+
+  location:
+    "flex items-center gap-2 text-sm text-slate-500 mb-4",
+
+  locationIcon:
+    "text-slate-400 shrink-0 text-base",
+
+  // Property Specs
+  specsGrid:
+    "grid grid-cols-3 border-t border-slate-100 mt-auto py-4",
+
+  specItem:
+    "flex flex-col items-center justify-center text-center px-2",
+
+  specIcon:
+    "flex justify-center text-slate-500 mb-1",
+
+  specValue:
+    "font-bold text-slate-900 text-sm",
+
+  specLabel:
+    "text-[11px] uppercase tracking-wide text-slate-400 font-semibold",
+
+  specDivider:
+    "border-x border-slate-100",
+
+  // View Details Button
   viewDetailsButton: "mt-5",
-  viewDetailsBtn: "btn btn-primary w-full p-3 rounded-xl font-bold text-[0.9375rem]",
 
-  // Custom actions container
-  actionsContainer: "px-5 pb-5 flex gap-2 relative z-20",
+  viewDetailsBtn: `
+    w-full
+    bg-teal-600
+    hover:bg-teal-700
+    text-white
+    font-semibold
+    py-3 px-4
+    rounded-xl
+    transition-all duration-200
+    hover:shadow-lg
+    cursor-pointer
+  `,
+
+  // Seller Dashboard Actions
+  actionsSection:
+    "p-5 pt-0 flex gap-2 flex-wrap relative z-20",
+
+  actionsContainer:
+    "px-5 pb-5 flex gap-2 relative z-20",
 };
