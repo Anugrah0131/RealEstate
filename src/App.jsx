@@ -26,10 +26,11 @@ const App = () => {
         <Route path="/register" element={<Register/>} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/properties" element={<Properties />} />
-        <Route path="/property/:id" element={<PropertyDetails/>}/>
+        <Route path="/properties/:id" element={<PropertyDetails/>}/>
 
-        <Route element={<AdminLayout />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route element={<AdminLayout />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </div>
   );

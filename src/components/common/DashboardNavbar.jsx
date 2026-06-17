@@ -6,7 +6,7 @@ import { HiMenuAlt2 } from "react-icons/hi";
 const DashboardNavbar = ({ onMenuClick }) => {
     return (
         <header className={s.header}>
-          <button className={onMenuClick} className={s.menuButton}>
+          <button onClick={onMenuClick} className={s.menuButton}>
             <HiMenuAlt2 size={24} />
           </button>
 

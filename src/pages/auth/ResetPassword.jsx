@@ -7,7 +7,7 @@ import API_URL from "../../config";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 const ResetPassword = () => {
-    const [password, SetPassword] = useState("");
+    const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -68,7 +68,7 @@ const ResetPassword = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={password}
-                                    onChange={(e) => SetPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="....."
                                     required
                                     className={s.input}
@@ -104,7 +104,7 @@ const ResetPassword = () => {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={confirmPassword}
-                                    onChange={(e) => SetConfirmPassword(e.target.value)}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     placeholder="....."
                                     required
                                     className={s.input}

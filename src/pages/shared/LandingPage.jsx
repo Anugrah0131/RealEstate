@@ -31,14 +31,7 @@ const LandingPage = () => {
         commercial: 0,
     });
 
-    useEffect(() => {
-        fetchProperties();
-        fetchCounts();
 
-        if (user && token) {
-            fetchWishlist();
-        }
-    }, [user, token]);
 
     const fetchWishlist = async () => {
         try {
@@ -134,6 +127,15 @@ const LandingPage = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchProperties();
+        fetchCounts();
+
+        if (user && token) {
+            fetchWishlist();
+        }
+    }, [user, token]);
 
     const handleSearch = (e) => {
         e.preventDefault();

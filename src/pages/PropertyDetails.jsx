@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { propertyDetailsStyles as s } from "../assets/dummyStyles";
 import Navbar from "../components/common/Navbar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import API_URL from "../config";
 import { HiChevronRight } from "react-icons/hi2";
-import { HiBadgeCheck, HiCalendar, HiChatAlt, HiChevronLeft, HiCollection, HiHeart, HiLocationMarker, HiOutlineHeart, HiOutlineHome, HiOutlineUserGroup, HiOutlineViewGrid } from "react-icons/hi";
+import { HiBadgeCheck, HiCalendar, HiChatAlt, HiChevronLeft, HiCollection, HiHeart, HiLocationMarker, HiOutlineHeart, HiOutlineHome, HiOutlineUserGroup, HiOutlineViewGrid, HiX } from "react-icons/hi";
 import PropertyCard from "../components/common/PropertyCard";
 
 const PropertyDetails = () => {

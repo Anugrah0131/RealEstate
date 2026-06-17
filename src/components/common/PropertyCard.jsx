@@ -21,10 +21,10 @@ const PropertyCard = ({
   isWishlisted,
   onToggleWishlist,
 }) => {
-  if (!property) return null;
-
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  if (!property) return null;
 
   const handleWishlistClick = (e) => {
     e.preventDefault();
