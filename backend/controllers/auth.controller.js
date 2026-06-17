@@ -9,11 +9,12 @@ export const register = async (req, res) => {
     try {
         const { name, email, password, role, phone, address } = req.body;
 
-        if (!name || !email || !password || !phone || !address) {
-            return res.status(400).json({
-                message: "All fields are required"
-            });
-        }
+      if (!name || !email || !password || !role) {
+    return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+    });
+}
 
         const userExists = await User.findOne({ email });
         if (userExists) {

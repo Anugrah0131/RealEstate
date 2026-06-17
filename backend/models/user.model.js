@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {    
+    email: {
         type: String,
         required: true,
-        unique : true
+        unique: true
     },
     password: {
         type: String,
@@ -21,15 +21,16 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true
+        default: ""
     },
+
     address: {
         type: String,
-        required: true
+        default: ""
     },
     isBlocked: {
-        type  : Boolean,
-        default : false
+        type: Boolean,
+        default: false
     },
 
     profilePic: {
@@ -65,4 +66,3 @@ const User = mongoose.model("User", userSchema);
 
 export default User;
 
-   
