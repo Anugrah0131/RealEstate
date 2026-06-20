@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { navbarStyles as s } from "../../assets/dummystyles";
-import Logo from "../Logo";
+import { navbarStyles as s } from "../../assets/dummyStyles";
+import Logo from "./Logo";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { HiMenu, HiMenuAlt3, HiX } from "react-icons/hi";

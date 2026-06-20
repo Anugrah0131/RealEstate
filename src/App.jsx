@@ -10,7 +10,12 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import Profile from "./pages/shared/Profile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminLayout from "./components/common/AdminLayout";
+import AdminLayout from "./components/AdminLayout";
+import AdminUsers from "./pages/admin/AdminUsers";
+import SellerRequests from "./pages/admin/SellerRequests";
+import AdminProperties from "./pages/admin/AdminProperties";
+import Admininquiries from "./pages/admin/Admininquiries";
+import AdminContacts from "./pages/admin/AdminContacts";
 
 const App = () => {
   return (
@@ -30,6 +35,11 @@ const App = () => {
 
         <Route element={<AdminLayout />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/seller-requests" element={<SellerRequests/>}/>
+          <Route path="admin/properties" element={<AdminProperties />}/>
+          <Route path="admin/inquiries" element={<Admininquiries />} />
+          <Route path="/admin/contacts" element={<AdminContacts />} />
         </Route>
       </Routes>
     </div>
