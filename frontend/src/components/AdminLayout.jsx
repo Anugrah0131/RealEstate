@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { adminLayoutStyles as s } from "../../assets/dummyStyles";
+import { adminLayoutStyles as s } from "../assets/dummyStyles";
 import AdminSidebar from "./AdminSidebar";
 import DashboardNavbar from "./DashboardNavbar";
 import { Outlet } from "react-router-dom";
