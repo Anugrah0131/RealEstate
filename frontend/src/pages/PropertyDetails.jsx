@@ -131,12 +131,12 @@ const PropertyDetails = () => {
         await axios.post(
             `${API_URL}/api/chat/send`,{
                 chatId: chat._id,
-                text: `(Context: Interested in porperty "${property.title}")`,
+                text: `(Context: Interested in property "${property.title}")`,
                 image: property.images[0],
         },
         { headers: {Authorization: `Bearer ${token}`} },
     );
-    navigate("/chat-message", { state: { chat}});
+    navigate("/chat-messages", { state: { chat}});
     } catch (err) {
       console.error("Error starting chat:", err);
       alert("Failed to start chat");
@@ -541,7 +541,9 @@ return (
             <div className={s.similarGrid}>
                 {similarProperties.length > 0 ? (
                     similarProperties.slice(0,3).map((p) => <PropertyCard
-                />)
+                        key={p._id}
+                        property={p}
+                    />)
                 ) : (
                     <div className={s.similarEmptyState}>
                         No similar properties found in this location.

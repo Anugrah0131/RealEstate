@@ -36,7 +36,7 @@ const PropertyCard = ({
     }
 
     if (onToggleWishlist) {
-      onToggleWishlist(property.id);
+      onToggleWishlist(property._id || property.id);
     }
   };
 
@@ -53,7 +53,7 @@ const PropertyCard = ({
 
   return (
     <div className={s.card}>
-      <Link to={`/properties/${property.id}`} className={s.link}>
+      <Link to={`/properties/${property._id || property.id}`} className={s.link}>
         {/* Image Section */}
         <div className={s.imageSection}>
           <img

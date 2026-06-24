@@ -34,7 +34,7 @@ const AdminDashboard = () => {
             }
         };
         fetchDashboardData();
-    }, []);
+    }, [token]);
 
 
     const statCards = [

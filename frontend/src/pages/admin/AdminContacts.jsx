@@ -75,15 +75,15 @@ const AdminContacts = () => {
                                             </span>
                                         </div>
 
-                                        <div className={s.contactDetails}>
-                                            <div className={s.detailItem}>
-                                                <HiOutlineMail size={16} /> {contact.mail}
-                                            </div>
-                                            {contact.phone && (
+                                            <div className={s.contactDetails}>
                                                 <div className={s.detailItem}>
-                                                    <HiOutlinePhone size={16} /> {contact.phone}
+                                                    <HiOutlineMail size={16} /> {contact.email}
                                                 </div>
-                                            )}
+                                                {contact.phone && (
+                                                    <div className={s.detailItem}>
+                                                        <HiOutlinePhone size={16} /> {contact.phone}
+                                                    </div>
+                                                )}
 
                                             <div className={s.detailItem}>
                                                 <HiOutlineClock size={16} />{" "}
